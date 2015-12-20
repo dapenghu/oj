@@ -1,0 +1,37 @@
+ public class Solution {
+    public String strStr(String haystack, String needle) {
+        if (haystack.length() < needle.length()) return null;
+        if (needle.length() == 0) return haystack;
+        OUTER:
+        for (int i = 0; i <= haystack.length() - needle.length(); i++){
+            for (int j = 0; j < needle.length(); j++){
+                if (haystack.charAt(i + j) != needle.charAt(j)){
+                    continue OUTER;
+                }
+            }
+            return haystack.substring(i);
+        }
+        return null;
+    }
+        
+    
+    public String strStr1(String haystack, String needle) {
+        if (needle.length() == 0) return haystack;
+        if (haystack.length() == 0 || haystack.length() < needle.length()) return null;
+        int i = 0, j = 0;
+        while (i < haystack.length() && j < needle.length()){
+            if (haystack.charAt(i) == needle.charAt(j)){
+                i++;
+                j++;
+            }else{
+                i = i - (j - 1);
+                j = 0;
+            }
+        }
+        if (j == needle.length()) return haystack.substring(i - j, haystack.length());
+        else return null;
+    }
+}
+
+
+

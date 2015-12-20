@@ -1,0 +1,39 @@
+ public class Solution {
+    public int removeElement(int[] A, int elem) {
+        if (A.length == 0) return 0;
+        int left = 0, right = A.length - 1;
+        while (left <= right){
+            if (A[left] != elem){
+                 left++;
+            } else if (A[right] == elem){
+                right--;
+            } else {
+                A[left] = A[right];
+                A[right] = elem;
+                left++;
+                right--;
+            }
+        }
+        return left;
+    }
+    
+    public int removeElement1(int[] A, int elem) {
+        int N = A.length;
+        if (N == 0) return 0;
+        int a = 0, b = N - 1;
+        while (a <= b ){
+            if (A[a] == elem){
+                swap(A, a, b--);
+            }else{
+                a++;
+            }
+        }
+        return a;
+    }
+    void swap(int[] A, int a, int b){
+        if (a == b) return;
+        int tmp = A[a];
+        A[a] = A[b];
+        A[b] = tmp;
+    }
+}

@@ -1,0 +1,23 @@
+ public class Solution {
+  public List<String> wordBreak(String s, Set<String> dict) {
+    int M = s.length();
+    List<String> segs[] = new List[M];
+
+    for (int i = M - 1; i >= 0; i--) {
+      List<String> partition = new ArrayList<>();
+      for (String w : dict) {
+        if (s.startsWith(w, i)) {
+          if (i + w.length() == M) {
+            partition.add(w);
+          } else {
+            for (String seg : segs[i + w.length()]) {
+              partition.add(w + " " + seg);
+            }
+          }
+        }
+      }
+      segs[i] = partition;
+    }
+    return segs[0];
+  }
+}

@@ -1,0 +1,17 @@
+ public class Solution {
+    public double pow(double x, int n) {
+        if (n < 0){
+            x = 1.0/x;
+            n = -n;
+        }
+        double ans = 1.0;
+        while (n > 0){
+            if ((n & 1) != 0){
+                ans *= x;
+            }
+            n >>= 1;
+            x *= x;
+        }
+        return ans;
+    }
+}

@@ -1,0 +1,68 @@
+ public class Solution {
+    public List<List<Integer>> permuteUnique(int[] num) {
+        Arrays.sort(num);
+        List<List<Integer>> ans = new ArrayList<>();
+        dfs(num, 0, ans);
+        return ans;
+    }
+    
+    void dfs(int[] num, int i, List<List<Integer>> ans){
+        if (i == num.length - 1){
+            List<Integer> perm = new ArrayList<>();
+            for (int k = 0; k < num.length; k++){
+                perm.add(num[k]);
+            }
+            ans.add(perm);
+            return;
+        }
+        
+        for (int j = i; j < num.length; j++){
+            if (j > i && num[j] == num[j - 1]){
+                continue;
+            }
+            rotateBackword(num, i, j);
+            dfs(num, i + 1, ans);
+            rotateForward(num, i, j);
+        }
+    }
+    void rotateForward(int[] num, int i, int j){
+        for (int k = i; k < j; k++){
+            swap(num, k, k + 1);
+        }
+    }
+    void rotateBackword(int[] num, int i, int j){
+        for (int k = j - 1; k >= i; k--){
+            swap(num, k, k + 1);
+        }
+    }
+    public List<List<Integer>> permuteUnique1(int[] num) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (num.length == 0) return ans;
+        dfs(num, 0, ans);
+        return ans;
+    }
+    
+    void dfs1(int[] num, int i, List<List<Integer>> ans){
+        if ( i == num.length - 1){
+            List<Integer> perm = new ArrayList<>();
+            for (int k = 0; k < num.length; k++)
+               perm.add(num[k]);
+            ans.add(perm);
+            return;
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int j = i; j < num.length; j++){
+            if (!set.contains(num[j])){
+                set.add(num[j]);
+                swap(num, i, j);
+                dfs(num, i + 1, ans);
+                swap(num, i, j);
+            }
+        }
+    }
+    void swap(int[] num, int a, int b){
+        int tmp = num[a];
+        num[a] = num[b];
+        num[b] = tmp;
+    }
+}

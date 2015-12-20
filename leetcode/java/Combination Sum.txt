@@ -1,0 +1,33 @@
+ public class Solution {
+    
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int N = candidates.length;
+        if (N == 0) return ans;
+        Arrays.sort(candidates);
+        dfs(candidates, target, 0, new ArrayList<Integer>(), ans);
+        return ans;
+    }
+    
+    void dfs(int[] nums, int diff, int i, List<Integer> cmb, List<List<Integer>> ans){
+        if (diff == 0) {
+            List<Integer> tmp = new ArrayList<>(cmb.size());
+            for (int k = cmb.size() - 1; k >= 0; k--){
+                tmp.add(cmb.get(k));
+            }
+            ans.add(tmp);
+            return;
+        }
+        if (i >= nums.length) return;
+        int count = diff / nums[i];
+        for (int k = 0; k <= count; k++){
+            if (k > 0) cmb.add(nums[i]);
+            dfs(nums, diff - (k * nums[i]), i + 1, cmb, ans);
+        }
+        while (cmb.size() > 0 && cmb.get(cmb.size() - 1) == nums[i]){
+            cmb.remove(cmb.size() - 1);
+        }
+        return;
+    }
+
+}

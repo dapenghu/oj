@@ -1,0 +1,36 @@
+
+public class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        int M = matrix.length;
+        if(M==0) return 0;
+        int N = matrix[0].length;
+        
+        int ans = 0;
+        int[] h = new int[N+1];
+        for (int i=0; i<M; i++){
+            for (int j=0; j<N; j++){
+                if (matrix[i][j] == '1'){
+                    h[j] ++;
+                }else{
+                  h[j] = 0;
+                }
+            }
+            Stack<Integer> s = new Stack<>();
+            int j = 0;
+            while (j<=N){
+                if(s.empty() || h[s.peek()] < h[j]){
+                    s.push(j++);
+                }else if (h[s.peek()] == h[j]){
+                    s.pop();
+                    s.push(j++);
+                }else {
+                    int height = h[s.pop()];
+                    int wideth = s.empty() ? j : (j-s.peek()-1);
+                    ans = Math.max(ans, height*wideth);
+                }
+            }
+        }
+        return ans;
+    }
+}
+

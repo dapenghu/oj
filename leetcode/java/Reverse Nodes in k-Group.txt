@@ -1,0 +1,67 @@
+ /**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if ( k < 2) return head;
+        
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        head = dummy;
+        while (head.next != null){
+            // find k nodes
+            ListNode end = head.next;
+            for (int i = 1; i < k && end != null; i++, end = end.next);
+            if (end == null) break;
+            
+            // reverse k nodes
+            ListNode stop = end.next;
+            end = head.next;
+            while (end.next != stop){
+                ListNode next = end.next;
+                end.next = next.next;
+                next.next = head.next;
+                head.next = next;
+            }
+            head = end;
+        }
+        return dummy.next;
+    }
+    
+    
+    public ListNode reverseKGroup1(ListNode head, int k) {
+        if (head == null || head.next == null || k < 2) return head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy;
+        while(true){
+            // check remaining length;
+            int i = 0;
+            ListNode kth = pre;
+            while(i < k && kth.next!=null){
+                i++;
+                kth = kth.next;
+            }
+            if (i < k) break;
+            // reverse k nodes
+            ListNode cur = pre.next;
+            while(pre.next != kth){
+                ListNode next = cur.next;
+                cur.next = next.next;
+                next.next = pre.next;
+                pre.next = next;
+            }
+            pre = cur;
+        }
+        return dummy.next;
+    }
+}
+// 

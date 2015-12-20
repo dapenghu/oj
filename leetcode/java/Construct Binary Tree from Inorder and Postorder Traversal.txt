@@ -1,0 +1,34 @@
+ /**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if (inorder.length != postorder.length) return null;
+        return buildTree(inorder, 0, inorder.length, 
+                         postorder, 0, postorder.length);
+    }
+    // return root of sub tree
+    public TreeNode buildTree(int[] inorder, int ia, int ib, int[] postorder, int pa, int pb) {
+        if (ia == ib) return null;
+        TreeNode root = new TreeNode(postorder[pb-1]);
+        // find root in inorder;
+        int pivot = ia;
+        for (int i = ia; i < ib; i++){
+            if (inorder[i] == root.val){
+                pivot = i;
+                break;
+            }
+        }
+        int left = pivot - ia;
+        root.left = buildTree(inorder, ia, pivot, postorder, pa, pa+left);
+        int rifht = ib - pivot-1;
+        root.right = buildTree(inorder, pivot+1, ib, postorder, pa+left, pb-1);
+        return root;
+    }
+}

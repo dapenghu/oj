@@ -1,0 +1,31 @@
+ public class Solution {
+    public boolean exist(char[][] board, String word) {
+        int M = board.length;
+        if (M == 0) return false;
+        int N = board[0].length;
+        if (N == 0) return false;
+        if (M*N < word.length()) return false;
+        for (int i = 0; i < M; i++){
+            for (int j = 0; j < N; j++){
+                if (dfs(board, i, j, 0, word )) return true;
+            }
+        }
+        return false;
+    }
+  boolean dfs(char[][] board, int i, int j, int len, String target){
+      if (len == target.length()) return true;
+      
+      if (i < 0 || i >= board.length) return false;
+      if (j < 0 || j >= board[0].length) return false;
+      if (board[i][j] != target.charAt(len)) return false;
+      
+      char orig = board[i][j];
+      board[i][j] = '.';
+      if (dfs(board, i+1, j, len+1, target))  return true;
+      if (dfs(board, i-1, j, len+1, target))  return true;
+      if (dfs(board, i, j-1, len+1, target))  return true;
+      if (dfs(board, i, j+1, len+1, target))  return true;
+      board[i][j] = orig;
+      return false;
+  }
+}

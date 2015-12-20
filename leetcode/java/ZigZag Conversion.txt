@@ -1,0 +1,21 @@
+public class Solution {
+    public String convert(String s, int nRows) {
+        if (s == null || s.length() == 0) return "";
+        if (nRows == 1) return s;
+        
+        StringBuilder sb = new StringBuilder();
+        int step1 = nRows*2 - 2;
+        for (int i = 0 ; i < nRows; i++){
+            int j = i;
+            int step2 = 2*(nRows - 1) -i*2 ;
+            while (j < s.length()){
+                sb.append(s.charAt(j));
+                if (i != 0 && i != nRows - 1 && (j + step2 < s.length())){
+                    sb.append(s.charAt(j + step2));
+                }
+                j += step1;
+            }
+        }
+        return sb.toString();
+    }
+}

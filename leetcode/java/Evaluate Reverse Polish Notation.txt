@@ -1,0 +1,22 @@
+public class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<String> s = new Stack<>();
+        for (int i = 0; i < tokens.length; i++){
+            if (isOperator(tokens[i])){
+              int y = Integer.parseInt(s.pop());
+              int x = Integer.parseInt(s.pop());
+              if (tokens[i].equals("+")) x+=y;
+              else if (tokens[i].equals("-")) x-=y;
+              else if (tokens[i].equals("*")) x*=y;
+              else x/=y;
+              s.push(Integer.toString(x));
+
+            } else{
+              s.push(tokens[i]);
+            }
+        }
+        return Integer.parseInt(s.pop());
+    }
+    boolean isOperator(String tk){
+        return tk.length() == 1 && "+-*/".indexOf(tk) >= 0;    }
+}

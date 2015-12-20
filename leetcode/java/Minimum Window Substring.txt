@@ -1,0 +1,40 @@
+public class Solution {
+    public String minWindow(String S, String T) {
+        int M = S.length();
+        int N = T.length();
+        if (M < N) return "";
+        
+        int[] expected = new int[256];
+        for (int i = 0; i < T.length(); i++) 
+           expected[T.charAt(i)]++;
+           
+        int[] actual = new int[256];
+        int count = 0, start = 0, min = Integer.MAX_VALUE;
+        for (int a = 0, b = 0; count == N || b < S.length(); ){
+            if (count < N){
+                char bb = S.charAt(b);
+                if (expected[bb] > 0){
+                    actual[bb]++;
+                    if (actual[bb] <= expected[bb])
+                      count++;
+                }
+                b++;
+            }else{
+                int len = b - a;
+                if (min > len){
+                    min = len;
+                    start = a;
+                }
+                char aa = S.charAt(a);
+                if (expected[aa] > 0){
+                    actual[aa]--;
+                    if (actual[aa] < expected[aa])
+                      count--;
+                }
+                a++;
+            }
+        }
+        if (min == Integer.MAX_VALUE) return "";
+        else return S.substring(start, start+min);
+    }
+}

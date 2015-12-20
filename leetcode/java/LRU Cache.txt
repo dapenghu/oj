@@ -1,0 +1,88 @@
+ public class LRUCache {
+    int capacity;
+    Map<Integer, Node> map;
+    DLL list;
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        map = new HashMap<>();
+        list = new DLL();
+    }
+    
+    public int get(int key) {
+        Node node = map.get(key);
+        if (node == null) return -1;
+        list.remove(node);
+        list.offer(node);
+        return node.val;
+    }
+    
+    public void set(int key, int value) {
+        if (capacity == 0) return;
+        
+        Node node = map.get(key);
+        if (node != null){
+             node.val = value;
+             list.remove(node);
+             list.offer(node);
+             return;
+        }
+        // check capacity
+        if (list.len == capacity){
+            // remove the last one
+            node = list.poll();
+            map.remove(node.key);
+        }
+        
+        node = new Node(key, value);
+        map.put(key, node);
+        list.offer(node);
+    }
+}
+
+class DLL{
+    int len;
+    Node head;
+    Node tail;
+    DLL(){
+        len = 0;
+        head = new Node(0, 0);
+        tail = new Node(0, 0);
+        head.next = tail;
+        tail.pre = head;
+    }
+    
+    Node poll(){
+        if (len == 0) return null;
+        Node ans = tail.pre;
+        tail.pre = ans.pre;
+        tail.pre.next = tail;
+        len --;
+        return ans;
+    }
+    
+    void remove(Node node){
+        node.next.pre = node.pre;
+        node.pre.next = node.next;
+        len--;
+    }
+    
+    void offer(Node node){
+        node.next = head.next;
+        node.pre = head;
+        
+        node.next.pre = node;
+        head.next = node;
+        len++;
+    }
+}
+
+class Node{
+    public int key;
+    public int val;
+    public Node pre;
+    public Node next;
+    Node(int key, int val){
+        this.key = key;
+        this.val = val;
+    }
+}

@@ -1,0 +1,67 @@
+ public class Solution {
+    public boolean isMatch(String s, String p) {
+        int star = -1;
+        int base = 0;
+        int i = 0, j = 0;
+        while (i < s.length()){
+            if (j == p.length()){
+              if (star >= 0){
+                  j = star + 1;
+                  i = ++base;
+                  continue;
+              } else {
+                  return false;
+              }
+            }
+            if (p.charAt(j) == '*'){
+                star = j++;
+                base = i;
+            } else {
+                if (p.charAt(j) == '?' || p.charAt(j) == s.charAt(i)){
+                    i++;
+                    j++;
+                } else {
+                    if (star >= 0){
+                        j = star + 1;
+                        i = ++base;
+                    } else {
+                        return false;
+                    }
+                }
+                
+            }
+        }
+        while (j < p.length() && p.charAt(j) == '*') j++;
+        return j == p.length();
+    }
+    
+    public boolean isMatch1(String s, String p) {
+        if (p == null || p.length() == 0) 
+           return s == null || s.length() == 0;
+
+        int i = 0, j= 0;
+        int wildI = -1, wildJ = -1;
+        while (i < s.length()){
+            if (j < p.length()){
+                if (p.charAt(j) == '*'){
+                    wildI = i;
+                    wildJ = j + 1;
+                    j++;
+                    continue;
+                }else if (p.charAt(j) == '?' || p.charAt(j) == s.charAt(i)){
+                    i++;
+                    j++;
+                    continue;
+                }
+             }
+             if (wildI >= 0){
+                 i = ++wildI;
+                 j = wildJ;
+             }else{
+                 return false;
+             }
+        }
+        while (j < p.length() && p.charAt(j) == '*') j++;
+        return j == p.length();
+    }
+}

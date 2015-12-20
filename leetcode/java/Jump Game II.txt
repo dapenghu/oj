@@ -1,0 +1,62 @@
+ public class Solution {
+    public int jump(int[] A) {
+        int nextStop = 0;
+        int reach = 0;
+        int step = 0;
+        for (int i = 0; i <= nextStop && i < A.length; i++){
+            if (i > nextStop){
+                nextStop = reach;
+                step++;
+            }
+            reach = Math.max(reach, A[i] + i);
+        }
+        return step;
+    }
+    
+    public int jump2(int[] A) {
+        if (A.length < 2) return 0;
+        int cur = 0;
+        int reach = A[0];
+        int step = 1;
+        while (reach < A.length - 1){
+            int next = reach;
+            for (int i = cur + 1; i <= reach; i++){
+                next = Math.max(next, i + A[i]);
+            }
+            if (next == reach) return -1;
+            cur = reach;
+            reach = next;
+            step++;
+        }
+        return step;
+    }
+    
+    public int jump1(int[] A) {
+        int N = A.length;
+        if (N == 0) return 0;
+        if (A[0] == 0) return 0;
+        
+        int[] steps = new int[N];
+        Arrays.fill(steps, N);
+        steps[0] = 0;
+        for (int i = 0; i < N; i++){
+            int next = steps[i] + 1;
+            for (int k = Math.min(N - 1, A[i] + i); k > i ; k--){
+                if (steps[k] > next){
+                    steps[k] = next;
+                    if (k == N - 1){
+                        return next;
+                    }
+                }else {
+                    break;
+                }
+            }
+        }
+        return steps[N - 1];
+    }
+}
+
+//2,3,1,1,4
+//0 5 5 5 5
+//0 1 1 5 5
+//0 1 1 5 5

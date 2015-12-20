@@ -1,0 +1,38 @@
+public class Solution {
+    
+    public int lengthOfLongestSubstring(String s) {
+        int ans = 0;
+        int[] count = new int[128];
+        int start = 0, end = 0;
+        while (end < s.length()){
+            char ch = s.charAt(end);
+            if (count[ch] == 0){
+                count[ch]++;
+                end++;
+                ans = Math.max(ans, end - start);
+            } else {
+                count[s.charAt(start++)]--;
+            }
+        }
+        return ans;
+    }
+    
+    public int lengthOfLongestSubstring1(String s) {
+        int N = s.length();
+        if (N <= 1) return N;
+        int ans = 0;
+        boolean[] used = new boolean[256];
+        for (int a = 0, b = 0; b < N; ){
+            char bb = s.charAt(b);
+            if (used[bb]){
+                char aa = s.charAt(a++);
+                used[aa] = false;
+            }else{
+                used[bb] = true;
+                b++;
+                ans = Math.max(ans, b - a);
+            }
+        }
+        return ans;
+    }
+}

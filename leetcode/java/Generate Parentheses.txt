@@ -1,0 +1,22 @@
+ public class Solution {
+    public List<String> generateParenthesis(int n) {
+        char[] text = new char[n*2];
+        List<String> ans = new ArrayList<>();
+        dfs(text, 0, 0, 0, n, ans);
+        return ans;
+    }
+    void dfs(char[] text, int i, int round, int antiRound, int n, List<String> ans){
+        if (i == n*2){
+            ans.add(new String(text));
+            return;
+        }
+        if(round > antiRound){
+            text[i] = ')';
+            dfs(text, i + 1, round, antiRound + 1, n, ans);
+        }
+        if (round < n){
+            text[i] = '(';
+            dfs(text, i + 1, round + 1, antiRound, n, ans);
+        }
+    }
+}

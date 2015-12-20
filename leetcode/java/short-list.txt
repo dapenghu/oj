@@ -1,0 +1,92 @@
+Median of Two Sorted Arrays
+Longest Valid Parentheses
+TrappingRainWater
+
+infinite loop : for()/while()
+null pointer: 
+out of boudary: for ()
+
+Max Points on a Line	2013-11-22	11.0%
+Word Ladder II	2013-02-10	11.4%
+Clone Graph	2013-09-24	22.9%
+Unique Binary Search Trees II	2012-08-27	27.3%
+Binary Tree Maximum Path Sum	2012-11-07	20.1%
+Substring with Concatenation of All Words	2012-02-23	18.1%
+Valid Number	2012-04-02	11.1%
+String to Integer (atoi)	2011-12-26	14.7%
+Insert Interval	2012-03-27	20.6%
+
+
+Insertion Sort List	2013-11-12	25.2%
+Sqrt(x)	2012-04-03	22.3%
+http://www.slideshare.net/maksym_zavershynskyi/fast-inverse-square-root
+http://www.codemaestro.com/reviews/9
+http://betterexplained.com/articles/understanding-quakes-fast-inverse-square-root/
+4Sum	2012-01-26	21.6%
+Word Break	2013-10-04	21.2%
+Spiral Matrix	2012-03-24	20.6%
+Merge Intervals	2012-03-26	20.9%
+Restore IP Addresses	2012-08-07	20.5%
+Surrounded Regions	2013-02-21	14.2%
+Text Justification	2012-04-03	14.0%
+Simplify Path	2012-04-03	20.0%
+
+
+Sort Colors	2012-04-08	32.1%
+Container With Most Water	2012-01-08	31.3%
+Set Matrix Zeroes	2012-04-05	30.9%
+Binary Tree Postorder Traversal	2013-11-07	30.9%
+Linked List Cycle II	2013-10-30	30.9%
+Search in Rotated Sorted Array II	2012-04-19	30.8%
+Spiral Matrix II	2012-03-27	30.7%
+Combinations	2012-04-18	30.3%
+Sum Root to Leaf Numbers	2013-02-18	29.7%
+Minimum Depth of Binary Tree	2012-10-09	29.6%
+Palindrome Number	2012-01-04	29.1%
+Subsets II	2012-06-25	27.1%
+Path Sum II	2012-10-14	27.0%
+Reverse Linked List II	2012-06-27	26.1%
+Palindrome Partitioning	2013-02-27	26.0%
+Edit Distance	2012-04-04	25.4%
+Permutations II	2012-03-16	25.1%
+Reverse Nodes in k-Group	2012-02-15	25.0%
+Distinct Subsequences	2012-10-18	24.9%
+Remove Duplicates from Sorted List II	2012-04-22	24.8%
+Jump Game II	2012-03-16	24.7%
+Combination Sum II	2012-03-06	24.6%
+ZigZag Conversion	2011-12-05	23.8%
+Anagrams	2012-03-19	23.8%
+Valid Palindrome	2013-01-12	22.9%
+Scramble String	2012-04-30	22.7%
+Longest Substring Without Repeating Characters	2011-05-15	22.3%
+Best Time to Buy and Sell Stock III	2012-11-06	22.3%
+Permutation Sequence	2012-03-27	22.2%
+Rotate List	2012-03-27	22.1%
+Implement strStr()	2012-02-18	22.0%
+Merge k Sorted Lists	2012-02-13	21.6%
+Maximal Rectangle	2012-04-23	21.6%
+Largest Rectangle in Histogram	2012-04-22	21.4%
+Sudoku Solver	2012-03-04	20.8%
+Longest Palindromic Substring	2011-11-11	20.7%
+Sort List	2013-11-16	20.5%
+Multiply Strings	2012-03-12	20.5%
+Reorder List	2013-11-02	20.4%
+Regular Expression Matching	2012-01-08	20.0%
+Word Search	2012-04-18	19.9%
+Evaluate Reverse Polish Notation	2013-11-27	19.8%
+Longest Valid Parentheses	2012-02-29	19.6%
+Interleaving String	2012-08-30	19.3%
+Candy	2013-09-30	19.1%
+Two Sum	2011-03-13	18.5%
+Word Ladder	2013-02-10	18.4%
+Palindrome Partitioning II	2013-02-28	18.2%
+Minimum Window Substring	2012-04-15	18.1%
+Median of Two Sorted Arrays	2011-03-27	17.5%
+Maximum Product Subarray	2014-09-23	17.3%
+3Sum	2012-01-17	16.9%
+Word Break II	2013-10-05	16.5%
+Divide Two Integers	2012-02-18	16.5%
+Decode Ways	2012-06-25	16.2%
+LRU Cache	2013-11-09	14.0%
+Reverse Words in a String	2014-03-05	14.0%
+Wildcard Matching	2012-03-15	14.0%

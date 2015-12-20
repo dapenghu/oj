@@ -1,0 +1,64 @@
+ import java.util.regex.*;
+public class Solution {
+  public boolean isNumber(String s) {
+  // state: leading space, sign, digits before dot, dot, digits after dot, e|E, exponent sign, exponent digits, tailing space
+    final int Leading_Space = 0, Sign = 1, Digit_Before_Dot = 2, Dot = 3, Digit_After_Dot = 4, 
+        E = 5, Exponent_Sign = 6, Exponent_Digit = 7, Tailing_Space = 8;
+    int state = Leading_Space;
+    for(int i = 0; i < s.length(); i++){
+      char ch = s.charAt(i);
+      switch (state) {
+      case Leading_Space:
+        if (ch == '+' || ch == '-') state = Sign;
+        else if (ch >= '0' && ch <= '9') state = Digit_Before_Dot;
+        else if (ch == '.') state = Dot;
+        else if (ch == ' ');
+        else return false;
+        break;
+      case Sign:
+        if (ch >= '0' && ch <= '9') state = Digit_Before_Dot;
+        else if (ch == '.') state = Dot;
+        else return false;
+        break;
+      case Digit_Before_Dot:
+        if (ch >= '0' && ch <= '9');
+        else if (ch == '.') state = Dot;
+        else if (ch == 'e' || ch == 'E') state = E;
+        else if (ch == ' ') state = Tailing_Space;
+        else return false;
+        break;
+      case Dot:
+        if (ch >= '0' && ch <= '9') state = Digit_After_Dot;
+        else if (ch == 'e' || ch == 'E') state = E;
+        else if (ch == ' ') state = Tailing_Space;
+        else return false;
+        break;
+      case Digit_After_Dot:
+        if (ch >= '0' && ch <= '9') state = Digit_After_Dot;
+        else if (ch == 'e' || ch == 'E') state = E;
+        else if (ch == ' ') state = Tailing_Space;
+        else return false;
+        break;
+      case E:
+        if (ch >= '0' && ch <= '9') state = Digit_After_Dot;
+        else if (ch == '+' || ch == '-') state = Exponent_Sign;
+        else return false;
+        break;
+      case Exponent_Sign:
+        if (ch >= '0' && ch <= '9') state = Digit_After_Dot;
+        else return false;
+        break;
+      case Exponent_Digit:
+        if (ch >= '0' && ch <= '9') state = Digit_After_Dot;
+        else if (ch == ' ') state = Tailing_Space;
+        else return false;
+        break;
+      case Tailing_Space:
+        if (ch == ' ') state = Tailing_Space;
+        else return false;
+        break;
+      }
+    }
+    return state == Tailing_Space || state == Digit_Before_Dot || state == Dot || state == Digit_After_Dot || state == Exponent_Digit;
+  }
+}

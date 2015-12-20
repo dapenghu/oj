@@ -1,0 +1,61 @@
+ /**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode mergeKLists(List<ListNode> lists) {
+        if (lists.size() == 0) return null;
+        
+        PriorityQueue<ListNode> pq = new PriorityQueue<ListNode>(lists.size(),
+        new Comparator<ListNode>(){
+            public int compare(ListNode a, ListNode b){
+                return Integer.compare(a.val, b.val);
+            }
+        });
+        
+        for (ListNode node : lists){
+            if (node != null) pq.offer(node);
+        }
+        ListNode head = new ListNode(0);
+        ListNode cur = head;
+        while (!pq.isEmpty()){
+            cur.next = pq.poll();
+            if (cur.next.next != null){
+                pq.offer(cur.next.next);
+            }
+            cur = cur.next;
+        }
+        return head.next;
+    }
+    
+    public ListNode mergeKLists1(List<ListNode> lists) {
+        if (lists.size() == 0) return null;
+        
+        PriorityQueue<ListNode> q = new PriorityQueue<ListNode>(lists.size(),
+        new Comparator<ListNode>(){
+            public int compare(ListNode a, ListNode b){
+                return Integer.compare(a.val, b.val);
+            }
+        });
+        
+        for(ListNode head: lists){
+            if (head != null) q.offer(head);
+        }
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
+        while (!q.isEmpty()){
+            ListNode next = q.poll();
+            cur.next = next;
+            cur = next;
+            if(next.next != null) q.offer(next.next);
+        }
+        return dummy.next;
+    }
+}

@@ -1,0 +1,47 @@
+ public class Solution {
+    public String multiply(String num1, String num2) {
+        if (num1.equals("0") || num2.equals("0")) return "0";
+        int M = num1.length();
+        int N = num2.length();
+        int[] digits = new int[M + N];
+        for (int i = 0, ii = num1.length() -1; ii >= 0; i++, ii--){
+            for (int j = 0, jj = num2.length() - 1; jj >= 0; j++, jj--){
+                int num = (num1.charAt(ii) - '0') * (num2.charAt(jj) - '0') + digits[i + j];
+                digits[i + j] = num % 10;
+                digits[i + j + 1] += num / 10;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        if (digits[M + N - 1] > 0){
+            sb.append(digits[M + N - 1]);
+        }
+        for (int i = M + N - 2; i >= 0; i--){
+            sb.append(digits[i]);
+        }
+        return sb.toString();
+    }
+    
+    public String multiply1(String num1, String num2) {
+        int M = num1.length();
+        int N = num2.length();
+        if (M * N == 0) return "0";
+        char[] prod = new char[M + N];
+        Arrays.fill(prod, '0');
+        for (int i = 0; i < M; i++){
+            int carry = 0;
+            int ii = num1.charAt(M - 1 - i) - '0';
+            for(int j = 0; j < N; j++){
+                int jj = num2.charAt(N - 1 - j) - '0';
+                int v =  ii * jj + carry + (prod[M + N - 1 - i - j ] - '0');
+                carry = v / 10;
+                v = v % 10;
+                prod[M + N - 1 - i - j ] = (char)(v + '0');
+            }
+            if (carry > 0) prod[M - i - 1 ] = (char)(carry + '0');
+        }
+        int i = 0;
+        while(i < M + N && prod[i] == '0') i++;
+        if (i == M + N) return "0";
+        else return new String(prod, i, M + N - i);
+    }
+}

@@ -1,0 +1,55 @@
+
+public class Solution {
+  public boolean isMatch(String t, String p){
+      if (p.length() == 0) return t.length() == 0;
+      return match(t, 0, p, 0);
+  }
+  
+  boolean match(String t, int i, String p, int j){
+      if (j == p.length()) {
+          return i == t.length();
+      }
+      if (j < p.length() -1 && p.charAt(j+1) == '*'){
+          if (match(t, i, p, j+2)){
+              return true;
+          }
+          while(i < t.length() && (p.charAt(j) == '.' || p.charAt(j) == t.charAt(i)) ){
+              if (match(t, i + 1, p, j + 2)) return true;
+              i++;
+          }
+          return false;
+      } else{
+          if (i == t.length()) return false;
+          if (p.charAt(j) == '.' || p.charAt(j) == t.charAt(i)){
+              return match(t, i + 1, p, j + 1);
+          } else {
+              return false;
+          }
+      }
+  }
+  
+  public boolean isMatch1(String t, String p){
+      if (p == null || p.length() == 0) 
+        return t == null || t.length() == 0;
+      return dfs(t, 0, p, 0);
+  }
+  
+  boolean dfs(String t, int i, String p, int j){
+      if (j == p.length()) return i == t.length();
+      if (j < p.length() - 1 && p.charAt(j + 1) == '*'){
+          // [\w.]*
+          if (dfs(t, i, p, j + 2)) return true;
+          while ( i < t.length() && (p.charAt(j) == '.' || p.charAt(j) == t.charAt(i)) ){
+            if (dfs(t, i + 1, p, j + 2)) return true;
+            i++;
+          }
+          return false;
+      }else{
+          // [\w.]
+          if (i < t.length() && (p.charAt(j) == '.' || p.charAt(j) == t.charAt(i)))
+             return dfs(t, i + 1, p, j + 1);
+          else
+             return false;
+      }
+  }
+}

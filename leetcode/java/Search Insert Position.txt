@@ -1,0 +1,33 @@
+ public class Solution {
+    public int searchInsert(int[] A, int target) {
+        int start = 0, end = A.length - 1;
+        while (start <= end){
+            int mid = (start + end) >> 1;
+            if (A[mid] == target) return mid;
+            if (A[mid] < target){
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return start;
+    }
+    
+    public int searchInsert1(int[] A, int target) {
+        int N = A.length;
+        if (N == 0) return 0;
+        
+        int a = 0, b = N-1;
+        while (a <= b){
+            int mid = (a + b)>>1;
+            if (A[mid] == target){
+                return mid;
+            }else if (A[mid] < target){
+                a = mid +1;
+            }else {
+                b = mid -1;
+            }
+        }
+        return a;
+    }
+}

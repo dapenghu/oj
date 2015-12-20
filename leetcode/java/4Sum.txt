@@ -1,0 +1,80 @@
+ public class Solution {
+    public List<List<Integer>> fourSum(int[] num, int target) {
+        if (num.length < 4) return Collections.emptyList();
+        int N = num.length;
+        Arrays.sort(num);
+        Map<Integer, Map<Integer, Integer>> twoSums = new HashMap<>();
+        Set<List<Integer>> set = new HashSet<>();
+        for (int i = 0; i < N; i++){
+            for (int j = i + 1; j < N; j++){
+                int sum = num[i] + num[j];
+                int diff = target - sum;
+                if (twoSums.get(diff) != null){
+                    for (Integer small : twoSums.get(diff).keySet()){
+                        int big = twoSums.get(diff).get(small);
+                        if (big <= num[i]){
+                            List<Integer> quad = new ArrayList<>();
+                            quad.add(small);
+                            quad.add(big);
+                            quad.add(num[i]);
+                            quad.add(num[j]);
+                            set.add(quad);
+                        }
+                    }
+                }
+                if (twoSums.get(sum) == null){
+                    twoSums.put(sum, new HashMap<Integer, Integer>());
+                }
+                twoSums.get(sum).put(num[i], num[j]);
+            }
+        }
+        return Collections.list(set);
+    }
+    
+    
+    public List<List<Integer>> fourSum1(int[] num, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (num.length < 4) return ans;
+        Arrays.sort(num);
+        Map<Integer, List<Pair>> sums = new HashMap<>(); 
+        for (int i = 0; i < num.length - 1; i++){
+            for (int j = i + 1; j < num.length; j++){
+                int sum = num[i] + num[j];
+                List<Pair> pairs = sums.get(sum);
+                if (pairs == null){
+                    pairs = new ArrayList<>();
+                    sums.put(sum, pairs);
+                }
+                pairs.add(new Pair(i, j));
+            }
+        }
+        Set<List<Integer>> set = new HashSet<>();
+        for (int i = 0; i < num.length - 1; i++){
+            for (int j = i + 1; j < num.length; j++){
+                int diff = target - num[i] - num[j];
+                List<Pair> pairs = sums.get(diff);
+                if (pairs != null){
+                    for (Pair p : pairs){
+                        if (p.a > j){
+                            List<Integer> list = new ArrayList<>();
+                            list.add(num[i]);
+                            list.add(num[j]);
+                            list.add(num[p.a]);
+                            list.add(num[p.b]);
+                            set.add(list);
+                        }
+                    }
+                }
+            }
+        }
+        return Collections.list(set);
+    }
+}
+class Pair{
+    int a;
+    int b;
+    Pair(int a, int b){
+        this.a = a;
+        this.b = b;
+    }
+}

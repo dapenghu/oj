@@ -1,0 +1,17 @@
+ public class Solution {
+    public boolean isPalindrome(String s) {
+        if (s == null || s.length() < 2) return true;
+        s = s.toLowerCase();
+        int a = 0, b = s.length() - 1;
+        while (a < b){
+            while (a < s.length() && !isAlphaNum(s.charAt(a))) a++;
+            while (b >= 0 && !isAlphaNum(s.charAt(b))) b--;
+            if (a == s.length() || b < 0) break;
+            if (s.charAt(a++) != s.charAt(b--)) return false;
+        }
+        return true;
+    }
+    boolean isAlphaNum(char ch){
+        return (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9');
+    }
+}

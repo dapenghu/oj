@@ -1,0 +1,9 @@
+ public class Solution {
+    public int singleNumber(int[] A) {
+        int N = A.length;
+        if (N == 0) return 0;
+        int ans = A[0];
+        for (int i = 1; i < N; i++)   ans ^= A[i];
+        return ans;
+    }
+}

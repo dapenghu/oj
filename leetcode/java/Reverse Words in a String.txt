@@ -1,0 +1,24 @@
+ public class Solution {
+    public String reverseWords(String s) {
+        s = s.trim();
+        int N = s.length();
+        if (N == 0) return "";
+        
+        Stack<String> st = new Stack<>();
+        int start = 0;
+        while (start < N){
+            while (start < N && s.charAt(start) == ' ') start++;
+            if (start == N) break;
+            int end = start + 1;
+            while (end < N && s.charAt(end) != ' ') end++;
+            st.push(s.substring(start, end));
+            start = end;
+        }
+        String ans = "";
+        while (!st.isEmpty()) {
+            ans += st.pop()+" ";
+        }
+        
+        return ans.substring(0, ans.length() - 1);
+    }
+}

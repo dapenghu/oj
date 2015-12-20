@@ -1,0 +1,30 @@
+public class Solution {
+    
+    public List<List<Integer>> combinationSum2(int[] num, int target) {
+        Arrays.sort(num);
+        List<List<Integer>> ans = new ArrayList<>();
+        dfs(num, target, 0, new ArrayList<Integer>(), ans);
+        return ans;
+    }
+    
+    void dfs(int[] num, int diff, int i, List<Integer> comb, List<List<Integer>> ans){
+        if (diff == 0) {
+            List<Integer> tmp = new ArrayList<>();
+            for (int k = 0; k < comb.size(); k++){
+                tmp.add(comb.get(k));
+            }
+            ans.add(tmp);
+            return;
+        }
+        for (int k = i; k < num.length; k++){
+            if (diff < num[k]) break;
+            if (k > i && num[k - 1] == num[k]){
+                continue;
+            }
+            comb.add(num[k]);
+            dfs(num, diff - num[k], k + 1, comb, ans);
+            comb.remove(comb.size() - 1);
+        }
+    }
+}
+

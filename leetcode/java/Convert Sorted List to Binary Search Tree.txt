@@ -1,0 +1,38 @@
+ /**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        if (head == null) return null;
+        if (head.next == null) return new TreeNode(head.val);
+        // pre->mid
+        ListNode slow = head, fast = head.next.next;
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // new root
+        ListNode mid = slow.next;
+        TreeNode root = new TreeNode(mid.val);
+        // left, right
+        root.right = sortedListToBST(mid.next);
+        slow.next = null;
+        root.left = sortedListToBST(head);
+        slow.next = mid;
+        return root;
+    }
+}

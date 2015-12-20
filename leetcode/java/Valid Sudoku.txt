@@ -1,0 +1,70 @@
+ public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        boolean[] nums = new boolean[9];
+        for (int i = 0; i < 9; i++){
+            Arrays.fill(nums, false);
+            for (int j = 0; j < 9; j++){
+                if (board[i][j] == '.') continue;
+                int num = (int)(board[i][j] - '1');
+                if (nums[num]) return false;
+                nums[num] = true;
+            }
+
+            Arrays.fill(nums, false);
+            for (int j = 0; j < 9; j++){
+                if (board[j][i] == '.') continue;
+                int num = (int) (board[j][i] - '1');
+                if (nums[num]) return false;
+                nums[num] = true;
+            }
+            
+            Arrays.fill(nums, false);
+            int rowBase = (i / 3) * 3;
+            int colBase = (i % 3) * 3;
+            for (int j = 0; j < 9; j++){
+                int row = rowBase + (j / 3);
+                int col = colBase + (j % 3);
+                if (board[row][col] == '.') continue;
+                int num = board[row][col] - '1';
+                if (nums[num]) return false;
+                nums[num] = true;
+            }
+        }
+        return true;
+    }
+    
+    public boolean isValidSudoku1(char[][] board) {
+        for(int i = 0; i < 9; i++){
+            boolean[] col = new boolean[9];
+            for (int j = 0; j < 9; j++ ){
+                if (board[i][j] == '.') continue;
+                int num = board[i][j] - '1';
+                if (col[num]) return false;
+                col[num] = true;
+            }
+        }
+        for (int j = 0; j < 9; j++){
+            boolean[] row = new boolean[9];
+            for (int i = 0; i < 9; i++){
+                if (board[i][j] == '.') continue;
+                int num = board[i][j] - '1';
+                if (row[num]) return false;
+                row[num] = true;
+            }
+        }
+        for (int i = 0; i < 9; i++){
+            boolean[] pos = new boolean[9];
+            int x = (i / 3) * 3;
+            int y = (i % 3) * 3;
+            for (int j = 0; j < 9; j++){
+                int xx = x + (j / 3);
+                int yy = y + (j % 3); 
+                if (board[xx][yy] == '.') continue;
+                int num = board[xx][yy] - '1';
+                if (pos[num]) return false;
+                pos[num] = true;
+            }
+        }
+        return true;
+    }
+}

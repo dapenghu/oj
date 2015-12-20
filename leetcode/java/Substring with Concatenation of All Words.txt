@@ -1,0 +1,43 @@
+ public class Solution {
+    public List<Integer> findSubstring(String S, String[] dict) {
+        List<Integer> ans = new ArrayList<>();
+        if (dict.length == 0) return ans;
+        int N = dict[0].length();
+        
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < N; i++){
+            Integer num = map.getOrDefault(dict[i], new Integer(0));
+            map.put(dict[i], num+1);
+        } 
+        for (int i = 0; i < N; i++){
+            Map<String, Integer> visited = new HashMap<>();
+            int start = i, end = start + N;
+            while (end < S.length()){
+                String last = S.substring(end - N, end);
+                Integer num = map.getOrDefault(last, new Integer(0));
+                if ( num == 0){
+                    start = end;
+                    end = start + N;
+                    visited.clear();
+                    
+                } else{
+                    Integer num2 = visited.getOrDefault(last, new Integer(0));
+                    String first = S.substring(start, start + N);
+                    if (num2 >= num){
+                        visited.put(first, visited.get(first) - 1);
+                        start+=N;
+                    } else{
+                        visited.put(last, num2 + 1);
+                        if ((end - start) == N * dict.length){
+                            ans.add(start);
+                            visited.put(first, visited.get(first) - 1);
+                            start += N;
+                        }
+                        end += N;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}

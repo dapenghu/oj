@@ -1,0 +1,22 @@
+ public class Solution {
+    public String countAndSay(int n) {
+        if (n <= 1) return "1";
+        String cur = "1";
+        for (int i = 1; i < n; i++){
+            StringBuilder sb = new StringBuilder();
+            int slow = 0, fast = 1;
+            while (fast < cur.length()){
+                if (cur.charAt(slow) != cur.charAt(fast)){
+                    sb.append(fast - slow);
+                    sb.append(cur.charAt(slow));
+                    slow = fast;
+                }
+                fast++;
+            }
+            sb.append(fast - slow);
+            sb.append(cur.charAt(slow));
+            cur = sb.toString();
+        }
+        return cur;
+    }
+}

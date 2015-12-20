@@ -1,0 +1,22 @@
+ public class Solution {
+    public List<Integer> grayCode(int n) {
+        int N = 1 << n;
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < N; i++){
+            ans.add(encode(decode(encode(i))));
+        }
+        return ans;
+    }
+    public int encode(int i){
+        return i ^ (i >> 1);
+    }
+    
+    public int decode(int g){
+        int k = g;
+        while (g > 0){
+            g = g>>1;
+            k ^= g;
+        }
+        return k;
+    }
+}

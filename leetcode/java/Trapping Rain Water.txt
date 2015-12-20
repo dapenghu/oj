@@ -1,0 +1,41 @@
+ public class Solution {
+    public int trap(int[] A) {
+        int N = A.length;
+        if (N < 3) return 0;
+        int[] right = new int[N];
+        right[N - 1] = A[N - 1];
+        for (int i = N - 2; i >= 0; i--){
+            right[i] = Math.max(A[i], right[i + 1]);
+        }
+        
+        int ans = 0;
+        int left = Integer.MIN_VALUE;
+        for (int i = 1; i < N - 1; i++){
+            left = Math.max(left, A[i - 1]);
+            int high = Math.min(left, right[i + 1]);
+            if (high > A[i]) ans += high - A[i];
+        }
+        return ans;
+    }
+    
+    public int trap1(int[] A) {
+        int N = A.length;
+        if (N < 3) return 0;
+        
+        int[] r = new int[N];
+        int max = 0;
+        for (int i = N - 1; i >= 0; i--){
+            max = Math.max(max, A[i]);
+            r[i] = max;
+        }
+        
+        int left = 0;
+        int sum = 0;
+        for (int i = 0; i < N; i++){
+            left = Math.max(left, A[i]);
+            int h = Math.min(left, r[i]);
+            sum += h - A[i];
+        }
+        return sum;
+    }
+}

@@ -1,0 +1,25 @@
+ public class Solution {
+    public int divide(int dividend, int divisor) {
+        int ans = 0;
+        int sign = 1;
+        long dividendL = (long)dividend;
+        long divisorL = (long)divisor;
+
+        if (dividendL < 0){
+            sign = -1;
+            dividendL = -dividendL;
+        }
+        if (divisorL < 0){
+            sign = -sign;
+            divisorL = -divisorL;
+        }
+        while (dividendL >= divisorL){
+            int shift = 0;
+            while (dividendL/2 >= divisorL << shift) shift++;
+            dividendL -= divisorL<<shift;
+            ans += (1<<shift);
+        }
+        
+        return sign < 0 ? -ans : ans;
+    }
+}

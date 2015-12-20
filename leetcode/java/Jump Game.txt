@@ -1,0 +1,23 @@
+ public class Solution {
+    public boolean canJump(int[] A) {
+        int N = A.length;
+        if (N < 2) return true;
+        int reach = 0;
+        for (int i = 0; i <= Math.min(reach, N - 1); i++){
+            reach = Math.max(reach, i + A[i]);
+        }
+        return reach >= N - 1;
+    }
+    
+    public boolean canJump1(int[] A) {a
+        int N = A.length;
+        if (N < 2) return true;
+        int leftMost = N - 1;
+        for (int i = N - 2; i >= 0; i--){
+            if (i + A[i] >= leftMost){
+                leftMost = i;
+            }
+        }
+        return leftMost == 0;
+    }
+}

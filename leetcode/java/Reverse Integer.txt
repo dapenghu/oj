@@ -1,0 +1,16 @@
+public class Solution {
+    public int reverse(int x) {
+        int sign = 1;
+        if (x < 0){
+            sign = -1;
+            x = -x;
+        }
+        char[] digits = Integer.toString(x).toCharArray();
+        for (int start = 0, end = digits.length - 1; start < end; start++, end--){
+            char tmp = digits[start];
+            digits[start] = digits[end];
+            digits[end] = tmp;
+        }
+        return Integer.valueOf(new String(digits)) * sign;
+    }
+}

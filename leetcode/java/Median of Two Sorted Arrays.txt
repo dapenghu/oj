@@ -1,0 +1,66 @@
+public class Solution {
+    public double findMedianSortedArrays(int A[], int B[]) {
+        int M = A.length;
+        int N = B.length;
+        if (((M + N) %2) == 0){
+            return (findKth(A, 0, B, 0, (M + N)/2) + findKth(A, 0, B, 0, ((M + N)/2) - 1)) / 2.0;
+        } else {
+            return findKth(A, 0, B, 0, (M + N) / 2) * 1.0;
+        }
+    }
+    
+    int findKth(int A[], int startA, int B[], int startB, int K){
+        if (startA == A.length) {
+            return B[startB + K];
+        }
+        if (startB == B.length) {
+            return A[startA + K];
+        }
+        if (K == 0){
+            return Math.min(A[startA], B[startB]);
+        }
+        int endA = Math.min(A.length - 1, startA + (K - 1)/2);
+        int endB = Math.min(B.length - 1, startB + (K - 1)/2);
+
+        if (A[endA] <= B[endB]){
+            return findKth(A, endA + 1, B, startB, K - (endA - startA + 1));
+        } else {
+            return findKth(A, startA, B, endB + 1, K - (endB - startB + 1));
+        }
+    }
+    
+    public double findMedianSortedArrays1(int A[], int B[]) {
+        int M = A.length;
+        int N = B.length;
+        if (((M + N) & 1) == 0){
+            int mid = (M + N)>>1;
+            return (findKth(A, 0, B, 0, mid - 1) + findKth(A, 0, B, 0, mid))/2.0;
+        } else{
+            return (double) findKth(A, 0, B, 0, (M + N)>>1);
+        }
+    }
+    
+    double findKth1(int[]A, int startA, int B[], int startB, int K){
+        if (startA == A.length){
+             return B[startB + K];
+        }
+        if (startB == B.length){
+            return A[startA + K];
+        }
+        if (K == 0){
+            return Math.min(A[startA], B[startB]);
+        }
+        
+        // move (K-1)/2 
+        int endA = Math.min(A.length - 1, startA + (K-1)/2);
+        int endB = Math.min(B.length - 1, startB + (K-1)/2);
+        
+        // make sure either startA or startB is increased 
+        if (A[endA] >= B[endB]){
+            return findKth(A, startA, B, endB + 1, K - (endB + 1 - startB));
+            
+        } else {
+            return findKth(A, endA + 1, B, startB, K - (endA + 1 - startA));
+        }
+    }
+}

@@ -1,0 +1,23 @@
+ public class Solution {
+    public int maxProfit(int[] prices) {
+        int N = prices.length;
+        if(N==0) return 0;
+        
+        int leftMax = prices[N-1];
+        int[] leftT = new int[prices.length+1];
+        for(int i=N-2; i>=0; i--){
+            leftMax = Math.max(leftMax, prices[i]);
+            leftT[i] = Math.max(leftMax-prices[i], leftT[i+1]);
+        }
+        
+        int ans=0;
+        int rightMin = prices[0];
+        int[] rightT = new int[prices.length];
+        for(int i=1; i<N; i++){
+            rightMin = Math.min(rightMin, prices[i]);
+            rightT[i] = Math.max(prices[i]-rightMin, rightT[i-1]);
+            ans = Math.max(ans, rightT[i]+leftT[i+1]);
+        }
+        return ans;
+    }
+}

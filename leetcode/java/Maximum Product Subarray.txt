@@ -1,0 +1,24 @@
+public class Solution {
+    public int maxProduct(int[] A) {
+        if (A.length == 0) return 0;
+        if (A.length == 1) return A[0];
+        
+        long ans = 0;
+        long prod = 1, prefix = 1;
+        for (int i = 0; i < A.length; i++){
+            if (A[i] == 0) {
+                prod = 1;
+                prefix = 1;
+                continue;
+            }
+            prod *= A[i];
+            ans = Math.max(ans, prod);
+            if (prefix > 0){
+                prefix *= A[i]; 
+            } else {
+                ans = Math.max(ans, prod/prefix);
+            }
+        }
+        return (int)ans;
+    }
+}
